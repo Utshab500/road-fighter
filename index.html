@@ -107,7 +107,7 @@
                 If you hit another car you will loose
             </p>
         </div>
-        <div class="gameArea"> </div>
+        <div class="gameArea" ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
     </div>
     <script>
 
@@ -136,7 +136,26 @@
 
         document.addEventListener('keydown', keyDown);
         document.addEventListener('keyup', keyUp);
-        // muteButton.addEventListener('click', toggleMute);
+    
+
+        function dragStart(event) {
+            event.dataTransfer.setData("Text", event.target.id);
+        }
+
+        function dragging(event) {
+            document.getElementById("demo").innerHTML = "The p element is being dragged";
+        }
+
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            var data = event.dataTransfer.getData("Text");
+            event.target.appendChild(document.getElementById(data));
+            document.getElementById("demo").innerHTML = "The p element was dropped";
+        }
 
         function keyDown(e) {
             e.preventDefault();
@@ -271,6 +290,8 @@
 
             let car = document.createElement('div');
             car.setAttribute('class', 'car');
+            car.addEventListener(ondragstart, dragStart(event));
+            car.addEventListener(ondrag, dragging(event));
             gameArea.appendChild(car);
 
             player.x = car.offsetLeft;
