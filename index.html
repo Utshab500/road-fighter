@@ -81,10 +81,25 @@
             text-transform: uppercase;
             box-shadow: 0 5px 5px #777;
         }
+
+        .mutebutton {
+            float: right;
+
+        }
     </style>
 </head>
 <body>
     <div class="carGame">
+        <audio class='initial-music hide' controls autoplay>
+            <source src="resources/initialMusic.mp3" type="audio/mpeg">
+        </audio>
+        <audio class='run hide' controls>
+            <source src="resources/run.mp3" type="audio/mpeg">
+        </audio>
+        <audio class='crash hide' controls>
+            <source src="resources/crash.mp3" type="audio/mpeg">
+        </audio>
+        <!-- <div class="mutebutton">I am a button</div> -->
         <div class="score hide"></div>
         <div class="startScreen">
             <p> Press here to start <br />
@@ -99,10 +114,14 @@
         const score = document.querySelector('.score');
         const startScreen = document.querySelector('.startScreen');
         const gameArea = document.querySelector('.gameArea');
-
-        console.log(gameArea);
+        // const muteButton = document.querySelector('.mutebutton');
+        const music = document.querySelector('.initial-music');
+        const runMusic = document.querySelector('.run');
+        const crash = document.querySelector('.crash');
+        
 
         startScreen.addEventListener('click', start);
+        
 
         let player = { score: 0, speed: 5 };
 
@@ -113,8 +132,11 @@
             ArrowRight: false
          };
 
+         let mute = true;
+
         document.addEventListener('keydown', keyDown);
         document.addEventListener('keyup', keyUp);
+        // muteButton.addEventListener('click', toggleMute);
 
         function keyDown(e) {
             e.preventDefault();
@@ -124,6 +146,18 @@
         function keyUp(e) {
             e.preventDefault();
             keys[e.key] = false;
+        }
+
+        function toggleMute() {
+            if (mute) {
+                mute = false;
+                music.play();
+            }
+            else {
+                mute = true;
+                music.pause();
+                music.currentTime = 0;
+            }
         }
 
         function moveLine() {
@@ -141,7 +175,11 @@
         function endGame () {
             startScreen.classList.remove('hide');
             player.start = false;
-            startScreen.innerHTML = "You are Fucked!!!! <br /> Your score: " + player.score + "<br />Click here to start again"
+            startScreen.innerHTML = "You are Fucked!!!! <br /> Your score: " + player.score + "<br />Click here to start again";
+            runMusic.pause();
+            runMusic.currentTime = 17;
+            crash.currentTime = 4;
+            crash.play();
         }
 
         function isCollide(a, b) {
@@ -158,7 +196,6 @@
 
             enemy.forEach(function(item, index) {
                 if (isCollide(car, item)) {
-                    console.log("Boom Hit");
                     endGame();
                 }
                 if (item.y >= 750) {
@@ -198,6 +235,9 @@
                 player.score++;
                 let ps = player.score - 1
                 score.innerHTML = "Score: " + ps + "<br /> speed: " + player.speed + " km/h";
+                if(runMusic.currentTime >= 20) {
+                    runMusic.currentTime = 17;
+                }
             }
         }
 
@@ -208,7 +248,8 @@
             gameArea.innerHTML = "";
 
             player.start = true;
-            window.requestAnimationFrame(gamePlay);
+            player.score = 0;
+            player.speed = 5;
 
             for (let x=0; x<5; x++) {
                 let roadLine = document.createElement('div');
@@ -235,10 +276,10 @@
             player.x = car.offsetLeft;
             player.y = car.offsetTop;
 
-            // console.log(car.offsetTop);
-            // console.log(car.offsetLeft);
+            runMusic.currentTime = 17;
+            runMusic.play();
+            window.requestAnimationFrame(gamePlay);
         }
-
 
     </script>
 </body>
