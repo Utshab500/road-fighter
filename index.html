@@ -144,7 +144,6 @@
         document.addEventListener('keyup', keyUp);
     
         function keyDown(e) {
-            console.log(e);
             e.preventDefault();
             keys[e.key] = true;
         }
@@ -154,8 +153,48 @@
             keys[e.key] = false;
         }
 
-        function mouseDown() {
-            console.log('Im pressed');
+        function mouseLeftState(e) {
+            e.preventDefault();
+            if (e.type == "mousedown") {
+                //code triggers on hold
+                keys['ArrowLeft'] = true;
+            }
+            else {
+                keys['ArrowLeft'] = false;
+            }
+        }
+
+        function mouseRightState(e) {
+            e.preventDefault();
+            if (e.type == "mousedown") {
+                //code triggers on hold
+                keys['ArrowRight'] = true;
+            }
+            else {
+                keys['ArrowRight'] = false;
+            }
+        }
+        
+        function mouseUpState(e) {
+            e.preventDefault();
+            if (e.type == "mousedown") {
+                //code triggers on hold
+                keys['ArrowUp'] = true;
+            }
+            else {
+                keys['ArrowUp'] = false;
+            }
+        }
+
+        function mouseDownState(e) {
+            e.preventDefault();
+            if (e.type == "mousedown") {
+                //code triggers on hold
+                keys['ArrowDown'] = true;
+            }
+            else {
+                keys['ArrowDown'] = false;
+            }
         }
 
         function toggleMute() {
@@ -330,8 +369,17 @@
             upButton.appendChild(upButtonIcon);
             downButton.appendChild(downButtonIcon);
 
-            // leftButton.addEventListener('onclick', keyDown({ key: 'ArrowLeft' }));
-            // rightButton.addEventListener('onclick', keyDown({ key: 'ArrowRight' }));
+            leftButton.addEventListener('mousedown', mouseLeftState);
+            leftButton.addEventListener('mouseup', mouseLeftState);
+
+            rightButton.addEventListener('mousedown', mouseRightState);
+            rightButton.addEventListener('mouseup', mouseRightState);
+
+            upButton.addEventListener('mousedown', mouseUpState);
+            upButton.addEventListener('mouseup', mouseUpState);
+
+            downButton.addEventListener('mousedown', mouseDownState);
+            downButton.addEventListener('mouseup', mouseDownState);
 
             gameArea.appendChild(leftButton);
             gameArea.appendChild(rightButton);
