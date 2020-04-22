@@ -369,17 +369,17 @@
             upButton.appendChild(upButtonIcon);
             downButton.appendChild(downButtonIcon);
 
-            leftButton.addEventListener('ontouchstart', mouseLeftState);
-            leftButton.addEventListener('ontouchend', mouseLeftState);
+            leftButton.addEventListener('touchstart', mouseLeftState);
+            leftButton.addEventListener('touchend', mouseLeftState);
 
-            rightButton.addEventListener('ontouchstart', mouseRightState);
-            rightButton.addEventListener('ontouchend', mouseRightState);
+            rightButton.addEventListener('touchstart', mouseRightState);
+            rightButton.addEventListener('touchend', mouseRightState);
 
-            upButton.addEventListener('ontouchstart', mouseUpState);
-            upButton.addEventListener('ontouchend', mouseUpState);
+            upButton.addEventListener('touchstart', mouseUpState);
+            upButton.addEventListener('touchend', mouseUpState);
 
-            downButton.addEventListener('ontouchstart', mouseDownState);
-            downButton.addEventListener('ontouchend', mouseDownState);
+            downButton.addEventListener('touchstart', mouseDownState);
+            downButton.addEventListener('touchend', mouseDownState);
 
             gameArea.appendChild(leftButton);
             gameArea.appendChild(rightButton);
