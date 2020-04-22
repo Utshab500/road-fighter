@@ -5,6 +5,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Road Fighter</title>
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
     <style>
@@ -86,6 +87,11 @@
             float: right;
 
         }
+
+        .mobile-button {
+            position: absolute;
+            color: whitesmoke;
+        }
     </style>
 </head>
 <body>
@@ -107,7 +113,7 @@
                 If you hit another car you will loose
             </p>
         </div>
-        <div class="gameArea" ondrop="drop(event)" ondragover="allowDrop(event)"> </div>
+        <div class="gameArea"> </div>
     </div>
     <script>
 
@@ -137,27 +143,8 @@
         document.addEventListener('keydown', keyDown);
         document.addEventListener('keyup', keyUp);
     
-
-        function dragStart(event) {
-            event.dataTransfer.setData("Text", event.target.id);
-        }
-
-        function dragging(event) {
-            document.getElementById("demo").innerHTML = "The p element is being dragged";
-        }
-
-        function allowDrop(event) {
-            event.preventDefault();
-        }
-
-        function drop(event) {
-            event.preventDefault();
-            var data = event.dataTransfer.getData("Text");
-            event.target.appendChild(document.getElementById(data));
-            document.getElementById("demo").innerHTML = "The p element was dropped";
-        }
-
         function keyDown(e) {
+            console.log(e);
             e.preventDefault();
             keys[e.key] = true;
         }
@@ -165,6 +152,10 @@
         function keyUp(e) {
             e.preventDefault();
             keys[e.key] = false;
+        }
+
+        function mouseDown() {
+            console.log('Im pressed');
         }
 
         function toggleMute() {
@@ -290,12 +281,63 @@
 
             let car = document.createElement('div');
             car.setAttribute('class', 'car');
-            car.addEventListener(ondragstart, dragStart(event));
-            car.addEventListener(ondrag, dragging(event));
             gameArea.appendChild(car);
 
             player.x = car.offsetLeft;
             player.y = car.offsetTop;
+
+            // Mobile controls
+            let gameReact = gameArea.getBoundingClientRect();
+
+            const leftButton = document.createElement('div');
+            const rightButton = document.createElement('div');
+            const upButton = document.createElement('div');
+            const downButton = document.createElement('div');
+
+            leftButton.setAttribute('class', 'mobile-button');
+            rightButton.setAttribute('class', 'mobile-button');
+            upButton.setAttribute('class', 'mobile-button');
+            downButton.setAttribute('class', 'mobile-button');
+
+            leftButton.style.top = (gameReact.bottom - 100) + 'px';
+            rightButton.style.top = (gameReact.bottom - 100) + 'px';
+            upButton.style.top = (gameReact.bottom - 130) + 'px';
+            downButton.style.top = (gameReact.bottom - 70) + 'px';
+
+            leftButton.style.left = '10px';
+            rightButton.style.left = '60px';
+
+            upButton.style.left = (gameReact.width - 100) + 'px';
+            downButton.style.left = (gameReact.width - 100) + 'px';
+
+            const leftButtonIcon = document.createElement('i');
+            const rightButtonIcon = document.createElement('i');
+            const upButtonIcon = document.createElement('i');
+            const downButtonIcon = document.createElement('i');
+
+            leftButtonIcon.setAttribute('class', 'fa fa-chevron-circle-left fa-3x');
+            rightButtonIcon.setAttribute('class', 'fa fa-chevron-circle-right fa-3x');
+            upButtonIcon.setAttribute('class', 'fa fa-chevron-circle-up fa-3x');
+            downButtonIcon.setAttribute('class', 'fa fa-chevron-circle-down fa-3x');
+
+            leftButtonIcon.setAttribute('aria-hidden', 'true');
+            rightButtonIcon.setAttribute('aria-hidden', 'true');
+            upButtonIcon.setAttribute('aria-hidden', 'true');
+            downButtonIcon.setAttribute('aria-hidden', 'true');
+
+            leftButton.appendChild(leftButtonIcon);
+            rightButton.appendChild(rightButtonIcon);
+            upButton.appendChild(upButtonIcon);
+            downButton.appendChild(downButtonIcon);
+
+            // leftButton.addEventListener('onclick', keyDown({ key: 'ArrowLeft' }));
+            // rightButton.addEventListener('onclick', keyDown({ key: 'ArrowRight' }));
+
+            gameArea.appendChild(leftButton);
+            gameArea.appendChild(rightButton);
+            gameArea.appendChild(upButton);
+            gameArea.appendChild(downButton);
+
 
             runMusic.currentTime = 17;
             runMusic.play();
