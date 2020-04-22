@@ -91,6 +91,21 @@
         .mobile-button {
             position: absolute;
             color: whitesmoke;
+            display: none;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .score {
+                background-color: transparent;
+                left: 20px;
+                z-index: 1;
+                box-shadow: none;
+                font-size: medium;
+            }
+
+            .mobile-button {
+                display: inherit;
+            }
         }
     </style>
 </head>
@@ -276,14 +291,14 @@
                 car.style.top = player.y + 'px';
                 car.style.left = player.x + 'px';
 
-                if (player.score % 100 === 0) {
+                if (player.score % 100 === 0 && player.speed < 23) {
                     player.speed += 1;
                 }
 
                 window.requestAnimationFrame(gamePlay);
                 player.score++;
                 let ps = player.score - 1
-                score.innerHTML = "Score: " + ps + "<br /> speed: " + player.speed + " km/h";
+                score.innerHTML = "Score: " + ps + "<br /> Speed: " + (player.speed - 4) * 10 + " km/h";
                 if(runMusic.currentTime >= 20) {
                     runMusic.currentTime = 17;
                 }
@@ -340,11 +355,11 @@
 
             leftButton.style.top = (gameReact.bottom - 100) + 'px';
             rightButton.style.top = (gameReact.bottom - 100) + 'px';
-            upButton.style.top = (gameReact.bottom - 130) + 'px';
+            upButton.style.top = (gameReact.bottom - 150) + 'px';
             downButton.style.top = (gameReact.bottom - 70) + 'px';
 
             leftButton.style.left = '10px';
-            rightButton.style.left = '60px';
+            rightButton.style.left = '100px';
 
             upButton.style.left = (gameReact.width - 100) + 'px';
             downButton.style.left = (gameReact.width - 100) + 'px';
@@ -354,10 +369,10 @@
             const upButtonIcon = document.createElement('i');
             const downButtonIcon = document.createElement('i');
 
-            leftButtonIcon.setAttribute('class', 'fa fa-chevron-circle-left fa-3x');
-            rightButtonIcon.setAttribute('class', 'fa fa-chevron-circle-right fa-3x');
-            upButtonIcon.setAttribute('class', 'fa fa-chevron-circle-up fa-3x');
-            downButtonIcon.setAttribute('class', 'fa fa-chevron-circle-down fa-3x');
+            leftButtonIcon.setAttribute('class', 'fa fa-chevron-circle-left fa-4x');
+            rightButtonIcon.setAttribute('class', 'fa fa-chevron-circle-right fa-4x');
+            upButtonIcon.setAttribute('class', 'fa fa-chevron-circle-up fa-4x');
+            downButtonIcon.setAttribute('class', 'fa fa-chevron-circle-down fa-4x');
 
             leftButtonIcon.setAttribute('aria-hidden', 'true');
             rightButtonIcon.setAttribute('aria-hidden', 'true');
