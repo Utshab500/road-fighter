@@ -224,7 +224,7 @@
         function endGame () {
             startScreen.classList.remove('hide');
             player.start = false;
-            startScreen.innerHTML = "You are Fucked!!!! <br /> Your score: " + player.score + "<br />Click here to start again";
+            startScreen.innerHTML = "Game Over!!!! <br /> Your score: " + player.score + "<br />Click here to start again";
             runMusic.pause();
             runMusic.currentTime = 17;
             crash.currentTime = 4;
