@@ -155,7 +155,7 @@
 
         function mouseLeftState(e) {
             e.preventDefault();
-            if (e.type == "mousedown") {
+            if (e.type == "touchstart") {
                 //code triggers on hold
                 keys['ArrowLeft'] = true;
             }
@@ -166,7 +166,7 @@
 
         function mouseRightState(e) {
             e.preventDefault();
-            if (e.type == "mousedown") {
+            if (e.type == "touchstart") {
                 //code triggers on hold
                 keys['ArrowRight'] = true;
             }
@@ -177,7 +177,7 @@
         
         function mouseUpState(e) {
             e.preventDefault();
-            if (e.type == "mousedown") {
+            if (e.type == "touchstart") {
                 //code triggers on hold
                 keys['ArrowUp'] = true;
             }
@@ -188,7 +188,7 @@
 
         function mouseDownState(e) {
             e.preventDefault();
-            if (e.type == "mousedown") {
+            if (e.type == "touchstart") {
                 //code triggers on hold
                 keys['ArrowDown'] = true;
             }
